@@ -14,7 +14,9 @@
 ;
 
 (define (length xs)
-  'not-implemented)
+  (if (null? xs)
+    0
+    (+ 1  (length (rest xs)))))
 
 ;
 ; Compute the sum of a list of integers
