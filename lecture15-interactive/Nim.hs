@@ -3,6 +3,7 @@
 
 -- Start ghci with `stack ghci`, then `:load Nim.hs` and evaluate `nim`
 -- to play Nim.
+{-# LANGUAGE BlockArguments #-}
 
 module Main where
 
@@ -43,7 +44,9 @@ move board row num = [update r n | (r,n) <- zip [1..] board]
 --
 
 putRow :: Int -> Int -> IO ()
-putRow row num = error "putRow: not yet defined"
+putRow row num =  do putStr (show row)
+                     putStr ": "
+                     putStrLn (replicate num '*')
 
 -- FIXME: `putBoard` should print the entire board
 --
@@ -58,7 +61,9 @@ putRow row num = error "putRow: not yet defined"
 -- ghci>
 
 putBoard :: Board -> IO ()
-putBoard _ = error "putBoard: not yet defined"
+putBoard [x] = putRow 5 x
+putBoard (x:xs) = do putRow (5 - length xs) x
+                     putBoard xs
 
 getDigit :: String -> IO Int
 getDigit prompt = do putStr prompt
